@@ -49,7 +49,7 @@ class SolarSite(object):
         mailing_list = 'false'
         
         # Declare url string
-        url = 'https://developer.nrel.gov/api/solar/nsrdb_psm3_download.csv?wkt=POINT({lon}%20{lat})&names={year}&leap_day={leap}&interval={interval}&utc={utc}&full_name={name}&email={email}&affiliation={affiliation}&mailing_list={mailing_list}&reason={reason}&api_key={api}&attributes={attr}'\
+        url = 'https://developer.nrel.gov/api/nsrdb/v2/solar/psm3-download.csv?wkt=POINT({lon}%20{lat})&names={year}&leap_day={leap}&interval={interval}&utc={utc}&full_name={name}&email={email}&affiliation={affiliation}&mailing_list={mailing_list}&reason={reason}&api_key={api}&attributes={attr}'\
         .format(year=year, lat=self.lat, lon=self.lon, leap=str(leap_year).lower(), interval=interval,\
                 utc=str(utc).lower(), name=your_name, email=your_email, mailing_list=mailing_list, \
                 affiliation=your_affiliation, reason=reason_for_use, api=api_key, attr=attributes)
@@ -66,7 +66,7 @@ class SolarSite(object):
         df=df.set_index(idx)
 
         self.resource_data = df
-        self.meta_resource_data = meta.T.to_dict('r')[0]
+        self.meta_resource_data = meta.T.to_dict(orient='records')[0]
         
         return df
     
